@@ -46,6 +46,7 @@ public class ChunkAreaManager {
                     int i1 = this.getAreaIndex(j, k, l);
                     Vector3i vector3i = new Vector3i(j << BASE_SH_XZ + 4, k << BASE_SH_Y + 4, l << BASE_SH_XZ + 4);
                     this.chunkAreasArr[i1] = new ChunkArea(i1, vector3i, minHeight);
+                    this.chunkAreasArr[i1] = new ChunkArea(i1, vector3i, minHeight);
                 }
             }
         }
@@ -180,7 +181,7 @@ public class ChunkAreaManager {
 
     public void resetQueues() {
         for(ChunkArea chunkArea : this.chunkAreasArr) {
-            chunkArea.drawBuffers().clear();
+            chunkArea.resetQueue();
         }
     }
 
