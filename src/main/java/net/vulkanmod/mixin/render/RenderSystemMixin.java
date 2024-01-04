@@ -48,6 +48,8 @@ public abstract class RenderSystemMixin {
 
     @Shadow private static @Nullable Thread renderThread;
 
+    @Shadow private static void pollEvents() {}
+
     /**
      * @author
      */
@@ -66,6 +68,7 @@ public abstract class RenderSystemMixin {
     /**
      * @author
      */
+    @Overwrite(remap = false)
     @Overwrite(remap = false)
     public static void _setShaderTexture(int i, int id) {
         if (i >= 0 && i < VTextureSelector.SIZE) {
@@ -164,9 +167,10 @@ public abstract class RenderSystemMixin {
      */
     @Overwrite(remap = false)
     public static void flipFrame(long window) {
-        org.lwjgl.glfw.GLFW.glfwPollEvents();
+        pollEvents();
         RenderSystem.replayQueue();
         Tesselator.getInstance().getBuilder().clear();
+        pollEvents();
     }
 
     /**
@@ -361,6 +365,9 @@ public abstract class RenderSystemMixin {
         VRenderSystem.lightDirection0.buffer().putFloat(4, p_157174_.y());
         VRenderSystem.lightDirection0.buffer().putFloat(8, p_157174_.z());
 
+        VRenderSystem.lightDirection1.buffer().putFloat(0, p_157175_.x());
+        VRenderSystem.lightDirection1.buffer().putFloat(4, p_157175_.y());
+        VRenderSystem.lightDirection1.buffer().putFloat(8, p_157175_.z());
         VRenderSystem.lightDirection1.buffer().putFloat(0, p_157175_.x());
         VRenderSystem.lightDirection1.buffer().putFloat(4, p_157175_.y());
         VRenderSystem.lightDirection1.buffer().putFloat(8, p_157175_.z());
